@@ -118,6 +118,31 @@ class MarketplaceRepository {
     }
   }
 
+  Future<Map<String, dynamic>> optimiseLoads({
+    required double truckPayloadKg,
+    required double truckVolumeM3,
+    required List<Map<String, dynamic>> availableLoads,
+    required List<double> driverLocation,
+  }) async {
+    final path = '/api/ml/load-optimiser';
+    final payload = <String, dynamic>{
+      'truck_payload_kg': truckPayloadKg,
+      'truck_volume_m3': truckVolumeM3,
+      'available_loads': availableLoads,
+      'driver_location': driverLocation,
+    };
+    try {
+      final decoded = await _apiClient.post(path, body: payload);
+      if (decoded is Map<String, dynamic>) {
+        return decoded;
+      }
+      return <String, dynamic>{'success': false, 'combinations': <dynamic>[]};
+    } catch (e) {
+      if (e is ApiException) throw StateError(e.message);
+      rethrow;
+    }
+  }
+
   Future<DriverBid> submitBid({
     required String loadId,
     required num amount,
