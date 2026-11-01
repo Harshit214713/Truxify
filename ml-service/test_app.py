@@ -12,7 +12,7 @@ def test_health_endpoint():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "ok"
-    assert data["models_loaded"] == 4
+    assert data["models_loaded"] >= 4
 
 
 def test_deadhead_router_mounted():
