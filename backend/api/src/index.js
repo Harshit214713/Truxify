@@ -450,6 +450,7 @@ app.use('/api/payments', authenticate, fraudDetectionMiddleware, networkAnalysis
 app.use('/api/lumper-escrow', lumperEscrowRoutes);
 app.use('/api/driver', deadheadRoutes);
 app.use('/api/orders', trackingRoutes);
+app.use('/api/tracking', trackingRoutes);
 app.use('/api/driver', driverRoutes);
 app.use('/api/drone', droneRoutes);
 app.use('/api/earnings', earningsRouter);
